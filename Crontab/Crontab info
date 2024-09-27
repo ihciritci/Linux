@@ -1,0 +1,34 @@
+#################### Crontab'da sık kullanılan bazı özel zamanlama etiketleri şunlardır: ####################
+
+          
+@hourly /path/to/script.sh           # @hourly: Her saat başı komutu çalıştırır.
+
+@daily certbot renew --quiet && systemctl reload postfix dovecot nginx     # Bu komut, her gün gece yarısı Certbot ile SSL sertifikasını yeniler ve ardından postfix, dovecot ve nginx hizmetlerini yeniden başlatır.
+
+@weekly /path/to/backup.sh           # @weekly: Her hafta bir kez komutu çalıştırır (genellikle Pazar günü gece yarısı).
+
+@monthly /path/to/monthly-cleanup.sh    #@monthly: Her ayın ilk günü bir kez komutu çalıştırır (gece yarısı).
+
+@yearly /path/to/annual-report.sh    # @yearly veya @annually: Her yıl bir kez, genellikle 1 Ocak'ta çalıştırır.
+
+@reboot /path/to/startup-script.sh     # @reboot: Sistem her yeniden başlatıldığında komutu çalıştırır.
+
+
+############# Crontab'ın Geleneksel Zamanlama Formatı:   #######################
+
+
+* * * * * /komut/yolu
+- - - - -
+| | | | |
+| | | | ----- Hangi hafta (0-7, Pazar 0 ve 7)
+| | | ------- Hangi ay (1-12)
+| | --------- Hangi gün (1-31)
+| ----------- Hangi saat (0-23)
+------------- Hangi dakika (0-59)
+
+
+30 5 * * * /path/to/script.sh   # Her gün sabah 5:30'da:
+
+0 3 * * 1 /path/to/weekly-maintenance.sh    # Her Pazartesi sabah 3:00'te:
+
+15 2 1 * * /path/to/monthly-task.sh     # Her ayın ilk günü sabah 2:15'te:
