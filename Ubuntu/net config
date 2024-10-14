@@ -1,1 +1,30 @@
-xx
+sudo nano /etc/netplan/xxx
+
+
+network:
+    renderer: networkd
+    ethernets:
+           ens18:
+            addresses:
+                - 94.23.152.174/32
+            nameservers:
+                addresses:
+                    - 8.8.8.8
+					          - 1.1.1.1
+                search: []
+            
+            routes:
+                - to: 0.0.0.0/0
+                  via: 91.134.20.254
+                  on-link: true
+    version: 2
+
+
+
+sudo netplan apply
+
+sudo nano /run/systemd/network/xxx         # 0.0.0.0/0  clean line
+
+sudo systemctl restart systemd-networkd	
+
+ping www.google.com    # for test
