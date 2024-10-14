@@ -1,1 +1,27 @@
-xx
+
+
+ip a
+
+# Centos 9
+ nano /etc/NetworkManager/system-connections/
+
+# CentOS 7 or 8
+sudo yum install -y network-scripts
+sudo nano /etc/sysconfig/network-scripts/ifcfg-ens33
+
+TYPE=Ethernet
+BOOTPROTO=static        # for Dinamic IP  write "dhcp" 
+NAME=ens33              #interface name
+DEVICE=ens33            # interface name
+ONBOOT=yes              # on startup  "yes".
+IPADDR=192.168.1.10     # Static IP
+NETMASK=255.255.255.0   # netmask
+GATEWAY=192.168.1.1     #   GEteway
+DNS1=8.8.8.8            # DNS1
+DNS2=8.8.4.4            # DNS2
+
+sudo systemctl restart network
+ or 
+sudo systemctl restart NetworkManager
+
+ping 8.8.8.8    #  for test
