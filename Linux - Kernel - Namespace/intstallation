@@ -1,0 +1,63 @@
+in addition to network and disk (mounted file systems)
+A -Network Namespace:
+B- Disk/mount namespace
+C- User Namespace: Isolates user and group IDs, which can be used for restricting access to certain resources.
+
+D- Process ID Namespace: Isolates process IDs, enabling each namespace to have its own local process IDs.
+E- IPC Namespace: Isolates IPC (Inter-Process Communication) resources, facilitating independent use of message queues, semaphores, and shared memory.
+
+F- UTS Namespace: Isolates host and domain names, allowing independent hostname management.
+
+
+1. Creating a Network Namespace
+
+
+$ sudo unshare --net bash      #  creates a new network namespace and opens a new bash shell inside it. This new shell is independent of the host system's network settings. 
+
+$ ip addr                      # check the network interfaces by running:
+
+
+2. Creating a Mount Namespace
+
+$ sudo unshare --mount bash    # creates a new mount namespace, allowing you to mount file systems independently of the main system.
+
+3. Using Multiple Namespaces Together
+
+
+$ sudo unshare --mount --net --pid bash    # d opens a new bash shell with separate mount, network, and process ID namespaces.
+
+
+
+##### cHECK Namespace  #####
+#* ip netns and lsns 
+
+$ ip netns list
+
+$ lsns     # SHOWS ALL namespace
+
+
+######## cREATE NEW nAMESPACE ENVIRONMENT #############
+1: Create a Network Namespace
+
+$ sudo ip netns add mynamespace   # After creating the network namespace, you can create a virtual Ethernet pair (veth pair):
+
+$ sudo ip link add veth0 type veth peer name veth1
+$ sudo ip link set veth1 netns mynamespace
+
+2: Set Up Network and Disk Settings
+
+$ sudo ip addr add 192.168.1.1/24 dev veth0
+$ sudo ip link set veth0 up
+
+$ sudo ip netns exec mynamespace ip addr add 192.168.1.2/24 dev veth1
+$ sudo ip netns exec mynamespace ip link set veth1 up
+
+$ sudo unshare --mount /bin/bash
+
+3: Check the Configuration
+
+$ sudo ip netns exec mynamespace ip addr
+
+$ lsns
+
+
