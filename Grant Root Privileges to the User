@@ -1,0 +1,24 @@
+$ sudo visudo
+
+# The command above leads us to the /etc/sudoers.tmp file
+# root@server:~# nano /etc/sudoers
+
+                 # User privilege specification
+root    ALL=(ALL:ALL) ALL
+
+                  # After the root user line, you will add in your new user with the same format for us to grant admin privileges.
+
+tom ALL=(ALL:ALL)ALL
+
+                  # User privilege specification
+root    ALL=(ALL:ALL) ALL
+newuser ALL=(ALL:ALL) ALL
+
+                 # The following line indicates that the admin group can execute all commands as any user. 
+
+%admin ALL=(ALL) ALL
+
+                 # This next line shows that the sudo user can run any command as any user and as any group.
+
+%sudo ALL=(ALL:ALL) ALL
+newuser ALL=(ALL:ALL) NOPASSWD:ALL   # NOT TO ENTER  ROOT PASS AT EVERY SUDO COMMAND
