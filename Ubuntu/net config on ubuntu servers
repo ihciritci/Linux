@@ -1,5 +1,4 @@
-sudo nano /etc/netplan/xxx
-
+$ sudo nano /etc/netplan/xxx-netconfxx.yaml
 
 network:
     renderer: networkd
@@ -10,7 +9,7 @@ network:
             nameservers:
                 addresses:
                     - 8.8.8.8
-					          - 1.1.1.1
+	            - 1.1.1.1
                 search: []
             
             routes:
@@ -19,12 +18,11 @@ network:
                   on-link: true
     version: 2
 
+$ sudo netplan apply  # an errror seem via 0.0.0.0.0 desc
 
+$sudo nano /run/systemd/network/xxx.networkxx.yaml
+ 
+ 	# 0.0.0.0/0  clean line
 
-sudo netplan apply
-
-sudo nano /run/systemd/network/xxx         # 0.0.0.0/0  clean line
-
-sudo systemctl restart systemd-networkd	
-
-ping www.google.com    # for test
+$ sudo systemctl restart systemd-networkd	
+$ ping www.google.com    # for test
