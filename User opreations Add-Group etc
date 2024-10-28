@@ -1,0 +1,25 @@
+$ cat /etc/group
+$ groups username
+$ id username
+
+
+$ sudo addgroup newi_grup
+
+$ sudo usermod -aG new_grup username
+
+$ sudo addgroup developers
+$ sudo usermod -aG developers john
+
+
+$ sudo passwd username
+
+Enter new UNIX password:
+Retype new UNIX password:
+
+$ sudo addgroup sudoers
+
+$ sudo usermod -aG sudoers username
+
+$ usermod -aG sudo newuser
+
+$ sudo su -
