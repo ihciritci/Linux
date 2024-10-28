@@ -1,0 +1,5 @@
+$ hostname
+$ sudo hostnamectl set-hostname yenihostname
+$ sudo systemctl restart systemd-hostnamed
+$ hostname
+          # restart is necessary to allpy changes
