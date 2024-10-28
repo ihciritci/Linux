@@ -22,3 +22,8 @@ newuser ALL=(ALL:ALL) ALL
 
 %sudo ALL=(ALL:ALL) ALL
 newuser ALL=(ALL:ALL) NOPASSWD:ALL   # NOT TO ENTER  ROOT PASS AT EVERY SUDO COMMAND
+
+
+## to Run Specific Sudo Commands Without a Password   ##
+
+jumpcloud ALL=(ALL) NOPASSWD: /usr/bin/apt update
