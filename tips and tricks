@@ -1,0 +1,12 @@
+    # to list users 
+
+$ cat /etc/passwd | cut -d: -f1
+
+    # to list only human users
+
+$ cut -d: -f1 /etc/passwd | grep -E '^[^:]+:[^:]*:[0-9]{4,}'
+
+    # to list ls command only names
+
+$ awk -F: '{print $1}' /etc/passwd
+
