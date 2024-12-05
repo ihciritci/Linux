@@ -5,7 +5,7 @@ network:
     ethernets:
            ens18:
             addresses:
-                - 94.23.152.174/32
+                - 94.23.xx.xx/32
             nameservers:
                 addresses:
                     - 8.8.8.8
@@ -14,7 +14,7 @@ network:
             
             routes:
                 - to: 0.0.0.0/0
-                  via: 91.134.20.254
+                  via: 91.134.xx.xx
                   on-link: true
     version: 2
 
