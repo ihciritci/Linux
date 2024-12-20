@@ -2,3 +2,73 @@
 
 
 
+#############################################################################################################################
+## Export the tar from a container  ##
+
+docker run -t --name wsl_export centos ls /
+
+docker export wsl_export > /mnt/c/temp/centos.tar
+
+docker rm wsl_export
+
+
+
+
+
+
+############################################################################################################################
+## Import the tar file into WSL // Importing CentOS example
+
+
+cd C:\temp
+mkdir E:\wslDistroStorage\CentOS
+
+wsl --import CentOS E:\wslDistroStorage\CentOS .\centos.tar
+
+wsl -l -v              # to check which distributions you have installed.
+
+
+https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
+
+
+
+
+############################################################################################################################
+## AlpineWSL
+
+https://github.com/yuk7/AlpineWSL
+https://github.com/yuk7/AlpineWSL/releases/tag   / Alphine.zip   # download it
+
+1. Download installer zip
+2. Extract all files in zip file to same directory
+3.Run Alpine.exe to Extract rootfs and Register to WSL
+                Exe filename is using to the instance name to register. 
+                If you rename it, you can register with a different name and have multiple installs.
+
+
+>Alpine.exe clean
+
+wsl --import --vhd Alpine0 E:\Alpine\ .\ext4.vhdx
+
+
+
+############################################################################################################################
+
+
+FROM alpine:3.14
+RUN apk add --no-cache mysql-client
+ENTRYPOINT ["mysql"]
+              # virtual image size of only 36.8MB. 
+
+FROM ubuntu:20.04
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends mysql-client \
+    && rm -rf /var/lib/apt/lists/*
+ENTRYPOINT ["mysql"]
+              # a virtual image size of about 145MB image.
+
+
+
+
+############################################################################################################################
