@@ -19,6 +19,7 @@ $ wsl --install           # install default subsystem .. for example ubuntu
 $ wsl --list              # list of installed systems
 
 $ wsl --list --online     # List available Linux distributions
+  wsl -l -o
 
 $ wsl --list --verbose    # List installed Linux distributions
 
@@ -26,7 +27,7 @@ $ wsl --update            # wsl --update
 
 
 ----->  install sample 
-  $ wsl --list --online 
+  $ wsl --list --online     /   wsl -l -o 
                         PS C:\Users\Administrator>  wsl --list --online
                         The following is a list of valid distributions that can be installed.
                         Install using 'wsl.exe --install <Distro>'.
