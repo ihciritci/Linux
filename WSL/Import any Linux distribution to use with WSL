@@ -30,6 +30,41 @@ wsl -l -v              # to check which distributions you have installed.
 
 https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
 
+apk update         # Paket veritabanını günceller
+apk upgrade        # Yüklü paketleri günceller
+
+apk add ansible
+apk add terraform
+
+apk search <packagename>
+
+apk add curl bash
+apk cache clean
+
+apk del curl
+
+apk add coreutils    # Coloured Ls command
+     alias ls='ls --color=auto'
+  
+  # Bunu daimi yapmak için ~/.bashrc dosyasına ekleyin:
+echo "alias ls='ls --color=auto'" >> ~/.bashrc  
+source ~/.bashrc
+
+apk search <paket_adı>	Belirli bir paketi arar
+apk info <paket_adı>	Paket hakkında bilgi verir
+apk list --installed	Yüklü paketlerin listesini gösterir
+apk cache clean	Önbelleği temizler
+apk policy <paket_adı>	Bir paketin hangi sürümünün kurulu olduğunu gösterir
+
+
+
+.vimrc    ~/.vimrc   /etc/vim/vimrc
+
+    syntax on
+    set background=dark
+
+
+
 
 
 
