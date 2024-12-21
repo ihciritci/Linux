@@ -22,4 +22,15 @@ nano ~/.zshrc
 # add plugins ....  zsh-syntax-highlighting
 
 zsh   #  ok
+
+
+
+### Start Zsh  Automatic ## 
+# Add lines to .profile or .bash_profile  belows
+
+exec zsh 
+# or
+echo 'exec zsh' >> ~/.profile
+
+
 #########################
