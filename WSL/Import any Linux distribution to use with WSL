@@ -107,3 +107,51 @@ ENTRYPOINT ["mysql"]
 
 
 ############################################################################################################################
+## Manually installing WSL2 distributions  ## https://dev.to/milolav/manually-installing-wsl2-distributions-41b4
+
+PS E:\Temp> wsl --list --all -v
+  NAME            STATE           VERSION
+* Ubuntu-20.04    Stopped         2
+
+PS E:\Temp> wsl --export Ubuntu-20.04 E:\WSL2\ubuntu.tar
+
+PS E:\Temp> wsl --import Ubuntu-Copy E:\WSL2\Ubuntu-Copy E:\WSL2\ubuntu.tar
+
+PS E:\Temp> wsl --list --all -v
+  NAME            STATE           VERSION
+* Ubuntu-20.04    Stopped         2
+  Ubuntu-Copy     Stopped         2
+
+PS E:\Temp> wsl -d Ubuntu-Copy
+root@PC123:/mnt/e/Temp#
+
+https://alpinelinux.org/downloads/  
+
+PS E:\Temp> wsl --import Alpine-3.12 E:\WSL2\Alpine-3.12 E:\WSL2\alpine-minirootfs-3.12.0-x86_64.tar.gz
+
+PS E:\Temp> wsl -d Alpine-3.12 /usr/sbin/adduser -g '' -D user1
+Changing password for user1
+New password:
+Retype password:
+passwd: password for user1 changed by root
+
+PS E:\Temp> wsl -d Alpine-3.12 -u user1
+PC123:/mnt/e/Temp$
+
+
+
+
+
+
+
+
+############################################################################################################################
+
+
+
+
+
+
+############################################################################################################################
+
+
