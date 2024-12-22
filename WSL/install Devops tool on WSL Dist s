@@ -9,10 +9,11 @@ apk upgrade
 apk add ansible
 apk add terraform
 apk add git
+apk add docker docker-compose   # 400mb 
 
 apk add py3-kubernetes
 
-
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 
 #################################################################################################################
 ## on ubuntu
