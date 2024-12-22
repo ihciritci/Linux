@@ -58,7 +58,14 @@ wsl --export Ubuntu-22.04 ./ubuntu-22.04.tar
 wsl --export Ubuntu-20.04  C:\WSL\WslZercodeDistros\ubuntu2004zsh0.tar      # 3.4 GB totally
 wsl --import Ubuntu-Copy E:\WSLs\Ubuntu-Copy ./ubuntu-22.04.tar
 
-***-* 
+***-* Samples
+PS C:\Users\Administrator> wsl --export Alpine2  E:\WslZercode\Alpine_Zsh_Devops.tar  # 419 Mb totally
+
+Dışarı aktarma devam ediyor, bu işlem birkaç dakika sürebilir.
+The operation completed successfully.
+
+
+*-*-*-*-*
 wsl --import CentOS E:\WSLs\CentOS C:\Path\to\centos-rootfs.tar.gz
 adduser yourusername
 passwd yourusername
