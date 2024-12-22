@@ -55,7 +55,7 @@ PS C:\WSL>
 
 
 wsl --export Ubuntu-22.04 ./ubuntu-22.04.tar
-
+wsl --export Ubuntu-20.04  C:\WSL\WslZercodeDistros\ubuntu2004zsh0.tar      # 3.4 GB totally
 wsl --import Ubuntu-Copy E:\WSLs\Ubuntu-Copy ./ubuntu-22.04.tar
 
 ***-* 
