@@ -40,6 +40,17 @@ Ubuntu-20.04 (Default)
 Alpine2
 Alpine1
 
+PS C:\WSL> wsl --import Centos8 C:\WSL\CentOS8\  C:\WSL\CentOS8\rootfs.tar.gz
+PS C:\WSL> wsl --import UbuntuZer1 C:\WSL\UbuntuZerCode\  C:\WSL\ubuntu-plucky-oci-amd64-root.tar.gz
+PS C:\WSL> wsl -l
+Windows Subsystem for Linux Distributions:
+Ubuntu-20.04 (Default)
+Alpine2
+Alpine1
+Centos8
+UbuntuZer1
+PS C:\WSL>
+
 ##################################################################################################################################
 
 
