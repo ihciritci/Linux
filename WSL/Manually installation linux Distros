@@ -1,14 +1,20 @@
-curl -o alpine-rootfs.tar.gz https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/alpine-minirootfs-3.18.4-x86_64.tar.gz
+curl -o alpine-rootfs.tar.gz https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/       
+                                            alpine-minirootfs-3.18.4-x86_64.tar.gz
+                                            alpine-minirootfs-3.21.0-x86_64.tar.gz 
 
 https://github.com/wsldl-pg/CentWSL/releases/download/8.1.1911.1/CentOS8.zip
 
+                              https://partner-images.canonical.com/oci/
+
 curl -o ubuntu-rootfs.tar.gz https://partner-images.canonical.com/oci/ubuntu-minimal/releases/jammy/release/ubuntu-22.04-minimal-cloudimg-amd64-root.tar.gz
+                              ubuntu-plucky-oci-amd64-root.tar.gz
+
 
 
 mkdir E:\WSLs\Ubuntu-Copy
 
 wsl --import Ubuntu-Copy E:\WSLs\Ubuntu-Copy .\ubuntu-rootfs.tar.gz
-
+wsl --import Ubuntu-Copy E:\WSLs\Ubuntu-Copy D:\backups\ubuntu-rootfs.tar.gz
 
 wsl -l -v
 
@@ -19,6 +25,20 @@ adduser yourusername
 
 wsl.exe -d Ubuntu-Copy config --default-user yourusername
 
+--> Sample -*-*-
+PS C:\WSL> wsl --import Alpine1 C:\WSL\Alpine1  C:\WSL\Alpine1\rootfs.tar.gz
+PS C:\WSL> wsl -l
+Windows Subsystem for Linux Distributions:
+Ubuntu-20.04 (Default)
+Alpine1
+PS C:\WSL> wsl --import Alpine1 C:\WSL\Alpine2  C:\WSL\Alpine2\rootfs.tar.gz
+A distribution with the supplied name already exists.
+PS C:\WSL> wsl --import Alpine2 C:\WSL\Alpine2  C:\WSL\Alpine2\rootfs.tar.gz
+PS C:\WSL> wsl -l
+Windows Subsystem for Linux Distributions:
+Ubuntu-20.04 (Default)
+Alpine2
+Alpine1
 
 ##################################################################################################################################
 
