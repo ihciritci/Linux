@@ -77,11 +77,42 @@ $ sudo sudo apt update
       sudo usermod -aG docker $USER
 
 
-           
+$ sudo apt install -y kubernetes         
+
+sudo apt install -y curl apt-transport-https
+
+ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
+     
+kubectl version --client
+
+
+
+$ sudo apt install -y helm
+
+
            
            
 ################################################################################################################
-## on  Centos/Oracle Linux etc
+## ınstallıng  K9S
+
+$ sudo curl -sS https://webinstall.dev/k9s | bash
+
+
+
+################################################################################################################
+## minikube  K3s
+
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+minikube version
+
+################################################################################################################
+
+
+################################################################################################################
 
 
 ################################################################################################################
