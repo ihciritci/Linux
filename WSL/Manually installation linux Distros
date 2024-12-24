@@ -79,7 +79,21 @@ passwd yourusername
 wsl -d Alpine config --default-user yourusername
 
 
+##################################################################################################################################
+wsl --list --verbose
 
+wsl --terminate Ubuntu   # to stop dıstro
+
+wsl --unregister Ubuntu  # to delete dıstro
+
+
+   # Manuel Cleaning (Optional): 
+      %LOCALAPPDATA%\Packages
+      %USERPROFILE%\AppData\Local\Microsoft\WindowsApps
+
+
+
+##################################################################################################################################
 
 
 
