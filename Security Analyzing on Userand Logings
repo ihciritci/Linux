@@ -1,0 +1,43 @@
+lastlog   # last logging infos
+
+cat /root/.ssh/authorized_keys
+cat /home/zadmin/.ssh/authorized_keys
+
+# ssh logs
+sudo grep "Failed password" /var/log/auth.log    # ssh logs
+sudo grep "Connection from" /var/log/auth.log
+
+
+# system logs
+sudo grep "scan" /var/log/syslog
+sudo grep "Connection" /var/log/syslog
+
+# active connetions
+
+sudo netstat -an | grep ESTABLISHED
+sudo ss -an | grep ESTABLISHED
+
+
+# shows port scanning
+
+sudo tcpdump -i eth0 port 22
+
+# Ssh root user dısalloe
+
+sudo nano /etc/ssh/sshd_config
+
+PermitRootLogin no
+
+		# ıf you want to logıng wıth sshkey 
+		PasswordAuthentication no
+
+
+# Close all port
+
+sudo ufw allow 22    
+sudo ufw deny 1:65535/tcp
+
+# ban to port scanning   with default settıngs
+
+sudo apt update
+sudo apt install fail2ban
