@@ -70,3 +70,7 @@ sudo ufw allow from 203.0.113.5 to any port 22
 sudo ufw enable
 
 #####################################################################################################################################
+# show ip to loging but failed 
+
+grep "Failed password" /var/log/auth.log | awk '{print $(NF-3)}' | sort | uniq
+
