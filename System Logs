@@ -1,0 +1,4 @@
+SSH: /var/log/auth.log (Linux )
+FTP: /var/log/vsftpd.log
+Web: /var/log/nginx/access.log  or /var/log/apache2/access.log
+Windows Event Logs: Event Viewer
