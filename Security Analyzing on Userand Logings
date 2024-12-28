@@ -69,6 +69,11 @@ sudo ufw allow from 203.0.113.5 to any port 22
 
 sudo ufw enable
 
+sudo ufw status numbered
+sudo ufw delete 1
+sudo ufw status
+
+
 #####################################################################################################################################
 # show ip to loging but failed 
 
