@@ -41,3 +41,28 @@ sudo ufw deny 1:65535/tcp
 
 sudo apt update
 sudo apt install fail2ban
+
+#####################################################################################################################################
+sudo nano /etc/ssh/sshd_config
+
+AllowUsers zadmin@192.168.1.10
+AllowUsers zadmin@192.168.1.10 root@203.0.113.5
+sudo systemctl restart sshd
+
+
+sudo nano /etc/hosts.allow
+  sshd: 192.168.1.10
+  sshd: 203.0.113.5
+  
+sudo nano /etc/hosts.deny
+    sshd: ALL
+
+
+sudo ufw deny ssh
+
+sudo ufw allow from 192.168.1.10 to any port 22
+sudo ufw allow from 203.0.113.5 to any port 22
+
+sudo ufw enable
+
+#####################################################################################################################################
