@@ -56,7 +56,8 @@ sudo nano /etc/hosts.allow
   
 sudo nano /etc/hosts.deny
     sshd: ALL
-
+sudo ufw allow 10053/tcp
+sudo ufw allow 10052/tcp
 sudo ufw allow 10050/tcp
 sudo ufw allow 10051/tcp
 sudo ufw allow 80/tcp
