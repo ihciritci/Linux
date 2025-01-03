@@ -1,0 +1,31 @@
+sudo mkdir -p /etc/yum.repos.d/backup
+sudo mv /etc/yum.repos.d/*.repo /etc/yum.repos.d/backup/
+
+
+vi /etc/yum.repos.d/CentOS-Vault.repo
+
+
+          [BaseOS]
+          name=CentOS-8 - BaseOS
+          baseurl=http://vault.centos.org/8.5.2111/BaseOS/$basearch/os/
+          gpgcheck=1
+          enabled=1
+          gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+          
+          [AppStream]
+          name=CentOS-8 - AppStream
+          baseurl=http://vault.centos.org/8.5.2111/AppStream/$basearch/os/
+          gpgcheck=1
+          enabled=1
+          gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+          
+          [Extras]
+          name=CentOS-8 - Extras
+          baseurl=http://vault.centos.org/8.5.2111/extras/$basearch/os/
+          gpgcheck=1
+          enabled=1
+          gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+
+sudo yum clean all
+sudo yum update -y
