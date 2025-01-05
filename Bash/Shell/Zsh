@@ -3,7 +3,10 @@
 ########  install  on ubuntu #########################
 apk add zsh
 
-sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" 
+
+# ıf error ...  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 
 nano ~/.zshrc
 ZSH_THEME="robbyrussell"   --   ZSH_THEME="jonathan"   # change values
