@@ -78,5 +78,7 @@ sudo ufw status
 #####################################################################################################################################
 # show ip to loging but failed 
 
-grep "Failed password" /var/log/auth.log | awk '{print $(NF-3)}' | sort | uniq
+grep "Failed password" /var/log/auth.log | awk '{print $(NF-3)}' | sort | uniq    # ubuntu
+
+journalctl -u ssh.service | grep "Failed password" | awk '{print $(NF-3)}' | sort | uniq -c | sort -nr  # debian 
 
