@@ -26,7 +26,8 @@ ufw allow 10000/tcp
 ufw reload
 
 #  https://FQDN:10000 or https://ip-address:10000 
-
+curl -o webmin-setup-repos.sh https://raw.githubusercontent.com/webmin/webmin/master/webmin-setup-repos.sh
+sh webmin-setup-repos.sh
 ####### manually         ####
 
 #nano /etc/apt/sources.list
