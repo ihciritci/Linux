@@ -1,0 +1,37 @@
+## ın LVM via add lvm volum
+
+$ sudo fdisk /dev/sda
+
+     > n   # new disk
+     > p (primary) 
+     > volume numner  (4 for example)
+     > Sector ınfo s
+     >  for LVM   t and  8e 
+     > w
+
+$ sudo vgextend ubuntu-vg /dev/sda4
+$ sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+$ sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
+$ df -h
+
+
+#########################################
+## just expanding one disk 
+
+$ sudo fdisk /dev/sda
+  > p   # list volumes
+  > d   # and sda3 delete ıt
+  > n    # create new volume
+ > sector ınfo
+ > w  # save new dısk conf
+
+$ sudo resize2fs /dev/sda3
+
+$ sudo xfs_growfs /dev/sda3
+
+$ df -h
+
+
+
+
+
