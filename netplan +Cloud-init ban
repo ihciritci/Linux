@@ -14,6 +14,7 @@ sudo nano /etc/netplan/01-netcfg.yaml
           - 8.8.8.8
           - 8.8.4.4
 *-*---------------------------------------------
+sudo netplan apply            # server = networkd    GUI : NetworkManager
 
 sudo nano /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
    network: {config: disabled}
