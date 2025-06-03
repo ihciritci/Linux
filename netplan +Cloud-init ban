@@ -1,0 +1,22 @@
+sudo nano /etc/netplan/01-netcfg.yaml
+*-*---------------------------------------------
+  network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens33:                      # Senin interface adın olabilir (ifconfig veya ip a ile bak)
+      dhcp4: no
+      addresses:
+        - 192.168.1.100/24
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4
+*-*---------------------------------------------
+
+sudo nano /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+   network: {config: disabled}
+
+sudo touch /etc/cloud/cloud-init.disabled
+sudo reboot
