@@ -1,0 +1,71 @@
+
+
+lsblk -o NAME,SERIAL,SIZE,MODEL
+  nvme3n1       S6CKNL0Y419180     7T SAMSUNG MZQL27T6HBLA-00A07
+  nvme1n1       S6CKNL0Y419178     7T SAMSUNG MZQL27T6HBLA-00A07
+  
+ 
+ udevadm info --query=all --name=/dev/sdX | grep ID_SERIAL  # ba;ka bir yol
+
+ 
+sudo nano /etc/udev/rules.d/99-local-mount.rules
+
+KERNEL=="nvme*", ENV{ID_SERIAL_SHORT}=="S6CKNL0Y419180", SYMLINK+="nvme_disc2"
+KERNEL=="nvme*", ENV{ID_SERIAL_SHORT}=="S6CKNL0Y419178", SYMLINK+="nvme_disc1"
+
+
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
+
+root@ns31792948:~# ls -l /dev/nvme_disc*           # Dogrulama
+lrwxrwxrwx 1 root root 7 Jul 27 23:24 /dev/nvme_disc1 -> nvme1n1
+lrwxrwxrwx 1 root root 7 Jul 27 23:24 /dev/nvme_disc2 -> nvme3n1       
+
+
+mkfs.ext4 /dev/nvme_disc1
+mkfs.ext4 /dev/nvme_disc2
+
+mkdir -p /mnt/nvme_disc1_7TB
+mkdir -p /mnt/nvme_disc2_7TB
+
+### UUID ile kalıcı mount için blkid ile UUID'leri
+
+blkid /dev/nvme_disc1
+blkid /dev/nvme_disc2
+
+/dev/nvme_disc1: UUID="41d06be3-2580-4373-8da5-8911da657acc" BLOCK_SIZE="4096" TYPE="ext4"
+/dev/nvme_disc2: UUID="70306b16-a398-47bc-a5a8-1a57bf419241" BLOCK_SIZE="4096" TYPE="ext4"
+
+sudo nano /etc/fstab    # en alt satira ekle
+
+UUID=41d06be3-2580-4373-8da5-8911da657acc /mnt/nvme_disc1_7TB ext4  defaults,nofail  0  2
+UUID=70306b16-a398-47bc-a5a8-1a57bf419241 /mnt/nvme_disc2_7TB ext4  defaults,nofail  0  2
+
+systemctl daemon-reload
+mount 
+
+
+
+
+### ZFS RAID1:  ###
+
+zpool create zfspool mirror /dev/nvme_data1 /dev/nvme_data2
+
+mkfs.ext4 /dev/nvme_data1
+
+
+
+*---------------------------------------------------*
+mount
+
+
+###  Proxmox’a Mount Edilen Diskleri Eklemek (GUI Üzerinden)###
+
+Web arayüzde → Datacenter > Storage > Add > Directory
+
+Directory: /mnt/disk1
+
+Content: Disk image, ISO, Container, Backup (ne amaçla kullanacaksan)
+
+Enabled: ✅ seçili olmalı
