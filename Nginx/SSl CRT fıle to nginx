@@ -1,0 +1,123 @@
+***Dosyaları tanıyalım
+
+
+
+STAR_example_com.crt → sunucu (leaf) sertifikası (wildcard: *.example.com)
+
+SectigoPublicServerAuthenticationCADVR36.crt → ara sertifika (intermediate)
+
+SectigoPublicServerAuthenticationRootR46_USERTrust.crt → ara/üst sertifika (intermediate / cross)
+
+USERTrustRSACertificationAuthority.crt → kök sertifika (root) – genelde sunucuya göndermeyiz
+
+Ayrıca “Your PositiveSSL Wildcard Certificate for *.example.com in text format” diye bir metin var; bu muhtemelen STAR_example_com.crt’nin PEM (---BEGIN CERTIFICATE---) halinde aynısı. Eğer dosya olarak yoksa içeriği bir dosyaya kaydedip STAR_example_com.crt adıyla kullanabilirsin.
+
+Not: Nginx tarafında ssl_certificate dosyası sunucu sertifikası + ara sertifikalar (fullchain) olmalı. Root sertifikayı (USERTrust…) genelde eklemeyiz.
+
+
+
+sudo mkdir -p /etc/nginx/ssl/example
+# elindeki .crt ve .key dosyalarını buraya koy
+sudo cp /path/to/STAR_example_com.crt /etc/nginx/ssl/example/
+sudo cp /path/to/SectigoPublicServerAuthenticationCADVR36.crt /etc/nginx/ssl/example/
+sudo cp /path/to/SectigoPublicServerAuthenticationRootR46_USERTrust.crt /etc/nginx/ssl/example/
+sudo cp /path/to/USERTrustRSACertificationAuthority.crt /etc/nginx/ssl/example/   # (root; gerekmeyebilir)
+sudo cp /path/to/STAR_example_com.key /etc/nginx/ssl/example/                     # private key’in
+
+
+sudo chown root:root /etc/nginx/ssl/example/*
+sudo chmod 600 /etc/nginx/ssl/example/STAR_example_com.key
+sudo chmod 644 /etc/nginx/ssl/example/*.crt
+
+
+openssl x509 -in /etc/nginx/ssl/example/STAR_example_com.crt -noout -issuer -subject
+
+
+Sunucu: STAR_example_com.crt
+
+Ara 1 (server’a en yakın): SectigoPublicServerAuthenticationCADVR36.crt
+
+Ara 2 (üst): SectigoPublicServerAuthenticationRootR46_USERTrust.crt
+
+(Kök: USERTrustRSACertificationAuthority.crt → genelde dahil ETME)
+
+
+
+sudo sh -c 'cat \
+  /etc/nginx/ssl/example/SectigoPublicServerAuthenticationCADVR36.crt \
+  /etc/nginx/ssl/example/SectigoPublicServerAuthenticationRootR46_USERTrust.crt \
+  > /etc/nginx/ssl/example/chain-only.crt'
+
+
+
+sudo sh -c 'cat \
+  /etc/nginx/ssl/example/STAR_example_com.crt \
+  /etc/nginx/ssl/example/chain-only.crt \
+  > /etc/nginx/ssl/example/fullchain.crt'
+
+
+# Zincir doğrulama (ara’ları -untrusted ile veriyoruz)
+openssl verify -untrusted /etc/nginx/ssl/example/chain-only.crt /etc/nginx/ssl/example/STAR_example_com.crt
+
+**
+sudo -i
+cat STAR_example_com.crt \
+    SectigoPublicServerAuthenticationCADVR36.crt \
+    SectigoPublicServerAuthenticationRootR46_USERTrust.crt \
+    USERTrustRSACertificationAuthority.crt \
+    > /etc/nginx/ssl/example/fullchain.pem
+exit
+
+sudo cat STAR_example_com.crt \
+    SectigoPublicServerAuthenticationCADVR36.crt \
+    SectigoPublicServerAuthenticationRootR46_USERTrust.crt \
+    USERTrustRSACertificationAuthority.crt \
+    | sudo tee /etc/nginx/ssl/example/fullchain.pem > /dev/null
+
+sudo chmod 644 /etc/nginx/ssl/example/fullchain.pem
+sudo chown root:root /etc/nginx/ssl/example/fullchain.pem
+sud
+
+
+
+
+sudo nano /etc/nginx/sites-available/example.conf
+
+
+sudo unlink /etc/nginx/sites-enabled/example.conf
+
+zadmin@www:/etc/nginx/sites-available$ sudo ln -s /etc/nginx/sites-available/www.example.com /etc/nginx/sites-enabled/ 2>/dev/null || true
+
+
+
+
+
+b) Terminalden kontrol (OpenSSL ile)   
+
+
+openssl s_client -connect example.com:443 -servername example.com </dev/null 2>/dev/null | openssl x509 -noout -issuer -subject -dates
+zadmin@www:/etc/nginx/ssl/example$ openssl s_client -connect example.com:443 -servername example.com </dev/null 2>/dev/null | openssl x509 -noout -issuer -subject -dates
+issuer=C = US, O = Google Trust Services, CN = WE1
+subject=CN = example.com
+notBefore=Jun 29 19:16:22 2025 GMT
+notAfter=Sep 27 20:15:09 2025 GMT
+
+
+Hangi sertifika dosyası nerede kullanılıyor öğrenme
+sudo grep -R "ssl_certificate" /etc/nginx/sites-enabled/ /etc/nginx/sites-available/ /etc/nginx/nginx.conf
+
+*------------------------------
+sudo cp fullchain.pem fullchain.pem.bak
+zadmin@www:/etc/nginx/ssl/example$ sudo bash -c 'cat STAR_example_com.crt SectigoPublicServerAuthenticationCADVR36.crt USERTrustRSACertificationAuthority.crt SectigoPublicServerAuthenticationRootR46_USERTrust.crt > fullchain.pem'
+
+
+
+zadmin@www:/etc/nginx/ssl/example$ openssl s_client -connect www.example.com:443 -servername www.example.com </dev/null 2>/dev/null | openssl x509 -noout -issuer -subject -dates
+issuer=C = GB, O = Sectigo Limited, CN = Sectigo Public Server Authentication CA DV R36
+subject=CN = *.example.com
+notBefore=Aug 14 00:00:00 2025 GMT
+notAfter=Sep 13 23:59:59 2026 GMT
+
+*---------------------------------------
+
+
